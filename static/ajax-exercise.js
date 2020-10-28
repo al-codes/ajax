@@ -34,19 +34,18 @@ $("#order-form").on('submit', (evt) => {
   const formData = {
     melon_type: $('#melon-type-field').val(),
     qty: $('#qty-field').val()
-    
   };
 
   $.post('/order-melons', formData, (response) => {
     const orderStatus = $('#order-status');
-    
-    if (results.code === 'ERROR') {
-      orderStatus.css('color', 'red');
+
+    if (response.code === 'ERROR') {
+      orderStatus.addClass('order-error');
     } else {
-      orderStatus.css('color', '');  // Reset to original color
+      orderStatus.removeClass('order-error');  // Reset to original color
     }
 
     orderStatus.html(`<p>${response.msg}</p>`);
-
   });
 });
+
